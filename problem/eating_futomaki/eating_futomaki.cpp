@@ -2,36 +2,62 @@
 #include <vector>
 using namespace std;
 
-int futomaki_score(vector<int> &A, int n) {
-    vector<vector <int> > dp(n, vector<int>(n, 0));
-    vector<vector <int> > prefixSum(n, vector<int>(n, 0));
-
-    // Fill prefixSum to store sums of subarrays
-    for (int i = 0; i < n; ++i) {
-        prefixSum[i][i] = A[i];
-        for (int j = i + 1; j < n; ++j) {
-            prefixSum[i][j] = prefixSum[i][j - 1] + A[j];
+int futomaki_score(vector<int> A, int n) {
+    int score = 0;
+    int left = 0, right = n - 1;
+    while (left < right) {
+        if (right-left >= 2) {
+            int bigger_left = max(A[left], A[left+1]);
+            int bigger_right = max(A[right], A[right-1]);
+            if (bigger_left > bigger_right) {
+                cout << bigger_left << " ";
+                score += bigger_left;
+                if (A[left] >= A[left+1]) {
+                    if (A[left+1] > A[right])
+                    {
+                        left++;
+                        right--;
+                        cout << "1 ";
+                    }
+                    else {
+                        left+=2;
+                        cout << "2 ";
+                    }
+                }
+                else {
+                    left+=2;
+                    cout << "3 ";
+                }
+            }
+            else {
+                score += bigger_right;
+                cout << bigger_right << " ";
+                if (A[right] >= A[right-1]) {
+                    if (A[right-1] > A[left])
+                    {
+                        left++;
+                        right--;
+                        cout << "4 ";
+                    }
+                    else {
+                        right-=2;
+                        cout << "5 ";
+                    }
+                }
+                else {
+                    right-=2;
+                    cout << "6 ";
+                }
+            }
+        }
+        else {
+            score += max(A[left++], A[right--]);
+            cout << max(A[left++], A[right--]) << " ";
+            cout << "7 ";
         }
     }
-
-    for (int length = 2; length <= n; ++length) {
-        for (int l = 0; l + length - 1 < n; ++l) {
-            int r = l + length - 1;
-            // Consider all possible cuts and maximize deliciousness for A
-            if (length >= 2) {
-                // Two pieces from the left
-                dp[l][r] = max(dp[l][r], max(A[l], A[l + 1]) + (prefixSum[l + 2][r] - dp[l + 2][r]));
-                // Two pieces from the right
-                dp[l][r] = max(dp[l][r], max(A[r], A[r - 1]) + (prefixSum[l][r - 2] - dp[l][r - 2]));
-            }
-            if (length >= 3) {
-                // One piece from each side
-                dp[l][r] = max(dp[l][r], max(A[l], A[r]) + (prefixSum[l + 1][r - 1] - dp[l + 1][r - 1]));
-            }
-        }
-    }
-
-    return dp[0][n - 1];
+    cout << endl;
+    return score;
 }
 
 int main(int argc, char const *argv[])
