@@ -7,7 +7,45 @@ int futomaki_score(vector<int> A, int n) {
     int left = 0, right = n - 1;
     while (left < right) {
         if (right-left >= 2) {
-            int bigger_left = max(A[left], A[left+1]);
+            int smaller_left = max(A[left], A[left+1]);
+            int smaller_right = max(A[right], A[right-1]);
+            if (smaller_left < smaller_right) {
+                if (A[left] >= A[left+1]) {
+                    score += A[left];
+                    left += 2;
+                }
+                else {
+                    if (A[left+1] > A[right])
+                    {
+                        score += A[left+1];
+                        left += 2;
+                    }
+                    else {
+                        score += A[right];
+                        left++;
+                        right--;
+                    }
+                }
+            }
+            else {
+                if (A[right] >= A[right-1]) {
+                    score += A[right];
+                    right -= 2;
+                }
+                else {
+                    if (A[right-1] > A[left])
+                    {
+                        score += A[right-1];
+                        right -= 2;
+                    }
+                    else {
+                        score += A[left];
+                        left++;
+                        right--;
+                    }
+                }
+            }
+            /*int bigger_left = max(A[left], A[left+1]);
             int bigger_right = max(A[right], A[right-1]);
             if (bigger_left > bigger_right) {
                 cout << bigger_left << " ";
@@ -48,15 +86,14 @@ int futomaki_score(vector<int> A, int n) {
                     right-=2;
                     cout << "6 ";
                 }
-            }
+            }*/
         }
         else {
             score += max(A[left++], A[right--]);
-            cout << max(A[left++], A[right--]) << " ";
-            cout << "7 ";
+            /*cout << max(A[left++], A[right--]) << " ";
+            cout << "7 ";*/
         }
     }
-    cout << endl;
     return score;
 }
 
