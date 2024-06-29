@@ -3,5 +3,7 @@
 */*/*/
 
 *.exe
+*.ilk
+*.pdb
 
 *.docx
