@@ -2,72 +2,17 @@
 #include <vector>
 using namespace std;
 
-int futomaki_score(vector<int> A, int n) {
-    int score = 0;
-    int left = 0, right = n - 1;
-    while (left < right) {
-        if (right - left > 1) {
-            int bigger_left = max(A[left], A[left+1]);
-            int bigger_right = max(A[right], A[right-1]);
-            int smaller_left = min(A[left], A[left+1]);
-            int smaller_right = min(A[right], A[right-1]);
-            if ((smaller_left == smaller_right) && (bigger_left == bigger_right)) {
-                score += A[left];
-                left++;
-                right--;
-            }
-            if (smaller_left > bigger_right) {
-                score += A[left];
-                left++;
-                right--;
-            }
-            else if (smaller_right > bigger_left) {
-                score += A[right];
-                left++;
-                right--;
-            }
-            else if (bigger_left > bigger_right) {
-                if (A[left] < A[left+1]) {
-                    score += A[left+1];
-                    left += 2;
-                }
-                else {
-                    if (A[left+1] < A[right])
-                    {
-                        score += A[left];
-                        left += 2;
-                    }
-                    else {
-                        score += A[left];
-                        left++;
-                        right--;
-                    }
-                }
-            }
-            else {
-                if (A[right-1] > A[right]) {
-                    score += A[right-1];
-                    right -= 2;
-                }
-                else {
-                    if (A[right-1] < A[left])
-                    {
-                        score += A[right];
-                        right -= 2;
-                    }
-                    else {
-                        score += A[right];
-                        left++;
-                        right--;
-                    }
-                }
-            }
-        }
-        else {
-            score += max(A[left++], A[right--]);
-        }
-    }
-    return score;
+int futomaki_score(vector<vector<int>> &dp, vector<int> &A, int n, int start, int stop)
+{
+    if (start > stop) return 0;
+    if (dp[start][stop] != 0) return dp[start][stop];
+
+    int r1 = futomaki_score(dp, A, n, start + 2, stop) + max(A[start], A[start + 1]);
+    int r2 = futomaki_score(dp, A, n, start + 1, stop - 1) + max(A[start], A[stop]);
+    int r3 = futomaki_score(dp, A, n, start, stop - 2) + max(A[stop], A[stop - 1]);
+
+    dp[start][stop] = max(max(r1, r2), r3);
+    return dp[start][stop];
 }
 
 int main(int argc, char const *argv[])
@@ -81,6 +26,12 @@ int main(int argc, char const *argv[])
     {
         cin >> A[i];
     }
-    cout << futomaki_score(A,n) << endl;
+    vector<vector<int>> dp(n);
+    for (size_t i = 0; i < n; i++)
+    {
+        vector<int> tmp(n);
+        dp[i] = tmp;
+    }
+    cout << futomaki_score(dp, A, n, 0, n - 1) << endl;
     return 0;
 }
