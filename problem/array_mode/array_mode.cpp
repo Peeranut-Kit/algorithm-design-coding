@@ -3,7 +3,7 @@
 using namespace std;
 
 pair<int,int> array_mode_middle(vector<int> &v, int start, int stop) {
-    if (start == stop) return make_pair(1, v[start]);
+    if (v[start] == v[stop]) return make_pair(stop - start + 1, v[start]);
     int m = (start+stop)/2;
 
     pair<int,int> r1 = array_mode_middle(v, start, m);
@@ -25,7 +25,6 @@ pair<int,int> array_mode_middle(vector<int> &v, int start, int stop) {
 }
 
 pair<int,int> array_mode_crack(vector<int> &v, int start, int stop) {
-    if (start == stop) return make_pair(1, v[start]);
     // if subarray all contains the same number
     if (v[start] == v[stop]) return make_pair(stop - start + 1, v[start]);
 
@@ -47,7 +46,6 @@ pair<int,int> array_mode_crack(vector<int> &v, int start, int stop) {
 }
 
 pair<int,int> array_mode_leftcrack(vector<int> &v, int start, int stop) {
-    if (start == stop) return make_pair(1, v[start]);
     // if subarray all contains the same number
     if (v[start] == v[stop]) return make_pair(stop - start + 1, v[start]);
 
