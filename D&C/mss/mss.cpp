@@ -7,7 +7,7 @@ int three_max(int a, int b, int c) {
 }
 
 //naive O(n^2)
-int mss_prefix_sun(vector<int> &v) {
+int mss_prefix_sum(vector<int> &v) {
     vector<int> S(v.size());
     int sum = 0;
     for (size_t i = 0; i < v.size()-1; i++)
