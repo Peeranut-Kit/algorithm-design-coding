@@ -2,12 +2,12 @@
 #include <vector>
 using namespace std;
 
-pair<int,int> array_mode_recur(vector<int> &v, int start, int stop) {
+pair<int,int> array_mode_middle(vector<int> &v, int start, int stop) {
     if (start == stop) return make_pair(1, v[start]);
     int m = (start+stop)/2;
 
-    pair<int,int> r1 = array_mode_recur(v, start, m);
-    pair<int,int> r2 = array_mode_recur(v, m+1, stop);
+    pair<int,int> r1 = array_mode_middle(v, start, m);
+    pair<int,int> r2 = array_mode_middle(v, m+1, stop);
     int r1f = r1.first;
     int r2f = r2.first;
 
@@ -64,7 +64,7 @@ pair<int,int> array_mode_leftcrack(vector<int> &v, int start, int stop) {
 }
 
 pair<int,int> array_mode(vector<int> &v) {
-    //return array_mode_recur(v,0,v.size()-1);
+    //return array_mode_middle(v,0,v.size()-1);
     //return array_mode_crack(v,0,v.size()-1);
     return array_mode_leftcrack(v,0,v.size()-1);
 }
