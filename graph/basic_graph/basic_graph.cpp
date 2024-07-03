@@ -1,29 +1,9 @@
 #include <iostream>
+#include <graph.h>
 #include <vector>
 #include <stack>
 #include <queue>
 using namespace std;
-
-class graph
-{
-private:
-    vector<int> vertex;
-    vector< vector<int> > edge_matrix;
-public:
-    graph();
-    ~graph();
-    vector<int> adj(int vertex) {
-        return {};
-    }
-
-    int node_size() {
-        return vertex.size();
-    }
-
-    vector<int> get_vertex() {
-        return vertex;
-    }
-};
 
 // O(n + e)
 void find_path_dfs(int a, graph &G, vector<bool> &visited, vector<int> &from, stack<int> &s) {

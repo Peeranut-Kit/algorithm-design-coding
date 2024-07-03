@@ -1,44 +1,8 @@
 #include <iostream>
+#include <graph.h>
 #include <vector>
 #include <queue>
 using namespace std;
-
-class graph
-{
-private:
-    vector<int> vertex;
-    vector< vector<int> > edge_matrix;
-public:
-    graph();
-    ~graph();
-    vector<int> adj(int vertex) {
-        return {};
-    }
-
-    int node_size() {
-        return vertex.size();
-    }
-
-    vector<int> get_vertex() {
-        return vertex;
-    }
-
-    vector<int> zero_in_degree_node() {
-        return vertex;
-    }
-
-    bool has_zero_in_degree(int v) {
-        return true;
-    }
-
-    void remove_edge(int u, int v) {
-        return;
-    }
-
-    bool has_edge() {
-        return true;
-    }
-};
 
 // O(n + e)
 vector<int> topo_sorting(graph G) {
