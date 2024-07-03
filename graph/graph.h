@@ -43,6 +43,10 @@ public:
         return true;
     }
 
+    vector< pair<int,int> > get_edge() {
+        return pair_of_adjacent_node;
+    }
+
     vector< pair<int,int> > get_sorted_edge() {
         return pair_of_adjacent_node;
     }
