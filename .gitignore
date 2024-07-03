@@ -1,9 +1,9 @@
+# Ignore all files by default
+*
 .vscode/
 
-*/*/*/
-
-*.exe
-*.ilk
-*.pdb
-
-*.docx
+# Do not ignore
+!*/
+!*.cpp
+!*.h
+!*.pdf
