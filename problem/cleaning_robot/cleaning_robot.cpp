@@ -146,6 +146,7 @@ state cleaning_robot(state &start)
     int best = INT_MAX;
     state best_state = start;
     int state_num = 0;
+    if (isClean(start)) return start;
 
     set<state> state_collection;
     priority_queue<state, vector<state>, heuristic_comparer> pq;
@@ -159,6 +160,7 @@ state cleaning_robot(state &start)
         state_num++;
         print_state(current, best, state_num);
 
+        clean(current);
         if (isClean(current))
         {
             if (current.score < best)
@@ -168,7 +170,6 @@ state cleaning_robot(state &start)
             }
         }
         else {
-            clean(current);
             vector<state> children = children_of(current);
             for (state &child : children)
             {
@@ -217,7 +218,7 @@ int main(int argc, char const *argv[])
     state start(0, 0, 0, floor);
     state result = cleaning_robot(start);
 
-    //print_state(result, result.score, -1);
+    print_state(result, result.score, -1);
     cout << "Total Score: " << result.score << endl;
     return 0;
 }
