@@ -142,7 +142,6 @@ void print_state(state &x, int best_so_far, int state_number) {
 // Least cost search main function
 state cleaning_robot(state &start)
 {
-    vector< vector<bool> > reachable_matrix = get_reachable_matrix(start);
     int best = INT_MAX;
     state best_state = start;
     int state_num = 0;
