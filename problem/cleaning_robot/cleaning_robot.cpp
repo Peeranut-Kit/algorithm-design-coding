@@ -71,7 +71,7 @@ int heuristic(state &x) {
             if (reachable_matrix[i][j] && x.floor[i][j] > 0) {
                 int row_diff = abs(i - x.row);
                 int col_diff = abs(j - x.col);
-                sum += row_diff + col_diff + (2 * x.floor[i][j] - 1); // sum = every uncleaned cell score + distance that at least needed to travel to
+                sum += row_diff + col_diff + (3 * x.floor[i][j] - 2); // sum = every uncleaned cell score + distance that at least needed to travel to
             }
         }
     }
